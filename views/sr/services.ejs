@@ -1,0 +1,38 @@
+<%- include ('b'); %>
+	<script src='/javascripts/msg.min.js'></script>
+	<form action="javascript:req('service,contact,details,isc','','POST','','sr','contact')" onreset="rmsg()">
+		Polja oznacena sa * su neophodna<br/>
+		*Izaberite sta zelite:<br/>
+		<% let i = 1; _%>
+		<input type="radio" name="service" id="0" value="<%= rows[0].service %>" checked><label for="0"><%= rows[0].desc_se %></label>
+		<select id="0sc">
+			<option value="<%= rows[0].subcat %>"><%= rows[0].desc_sc %> <%= rows[0].price %>RSD</option>
+		<% let pr = rows[0].service; _%>
+		<% for(let j=1;j<rows.length;j++){ _%>
+			<% if (rows[j].service != pr){ _%>
+				</select><br/>
+				<input type="radio" name="service" id="<%= i %>" value="<%= rows[j].service %>"><label for="<%= i %>"><%= rows[j].desc_se %></label>
+				<select id="<%= i %>sc">
+					<option value="<%= rows[j].subcat %>"><%= rows[j].desc_sc %> <%= rows[j].price %>RSD</option>
+				<% i++; _%>
+				<% pr = rows[j].service; _%>
+			<% } else{ _%>
+				<option value="<%= rows[j].subcat %>"><%= rows[j].desc_sc %> <%= rows[j].price %>RSD</option>
+			<% }} _%>
+		</select><br/>
+		<br/>
+		<a class="btn btn-primary" href="?vmode=full" onclick="req('name=vmode&value=full',event,'POST','/cookie')">Promeni rezim prikaza</a>
+		<p>Navedene cene su okvirne i mogu variati u zavisnosti od tacne zelje<br/>
+		Popust 25% na grupne casove</p>
+		*Vas kontakt:<br/>
+		<% if (user){ %>
+			<input id="contact" type="text" value="<% if (user.emails){ %> <%= user.emails[0].value %> <% }else{ %>facebook id:<%= user.id %> <% } %>"/><br/>
+		<% }else{ %>
+			<input id="contact" type="text" placeholder="Ime i broj"/><br/>
+		<% } %>
+		<p>Dodatni detalji:<br/>
+		<input id="details" type="text" placeholder="Zelim/Pokvario se..."/></p>
+		<input class="btn btn-primary" type="submit" value="Posalji"> <input class="btn btn-primary" type="reset"/>
+	</form>
+	<div id="message"></div>
+<%- include ('b_end'); %>

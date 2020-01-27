@@ -1,0 +1,15 @@
+<%- include ('b'); %>
+	<script src='/javascripts/msg.min.js'></script>
+	Narudzbine:<br/>
+	<% rows.forEach(function(item){ -%>
+		<% if (user.id=='3343576799017822' && item.username){ %>Za: <%= item.username %><% } -%>
+		<% if (item.username==user.id || user.id=='3343576799017822'){ -%>
+			Id: <%= item.id_p %><br/>
+			Servis: <%= item.service %><br/>
+			Podkategorija: <%= item.subcat %><br/>
+			Detalji: <%= item.details %><br/>
+			Kontakt: <%= item.contact %><br/>
+			Uradjeno: <%= item.completed %> <a class="btn btn-primary" href="" onclick="req('<% if(item.completed){ %>completed=0<% }else { %>completed=1<% } %>&id_p=<%= item.id_p %>',event)">Promeni</a><br/>
+		<% } -%>
+	<% }) -%>
+<%- include ('b_end'); %>

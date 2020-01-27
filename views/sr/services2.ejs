@@ -1,0 +1,21 @@
+<%- include ('b') %>
+	<script src='/javascripts/msg.min.js'></script>
+	<%= rows[0].desc_se %>
+	<ul>
+		<li><%= rows[0].desc_sc %> <%= rows[0].price %>RSD</li>
+	<% let pr = rows[0].service; _%>
+	<% for(let j=1;j<rows.length;j++){ _%>
+		<% if (rows[j].service != pr){ _%>
+			</ul>
+				<%= rows[j].desc_se %>
+			<ul>
+				<li><%= rows[j].desc_sc %> <%= rows[j].price %>RSD</li>
+			<% pr = rows[j].service; _%>
+		<% } else{ _%>
+			<li><%= rows[j].desc_sc %> <%= rows[j].price %>RSD</li>
+		<% }} _%>
+	</ul>
+	<a class="btn btn-primary" href="?vmode=part" onclick="req('name=vmode&value=part',event,'POST','/cookie')">Promeni rezim prikaza</a>
+	<p>Navedene cene su okvirne i mogu variati u zavisnosti od tacne zelje<br/>
+	Popust 25% na grupne casove</p>
+<%- include ('b_end') %>

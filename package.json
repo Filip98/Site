@@ -1,0 +1,43 @@
+{
+  "name": "site",
+  "version": "1.0.0",
+  "description": "A site lol",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fistmedia/Site.git"
+  },
+  "keywords": [
+    "site"
+  ],
+  "author": "fistmedia",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/fistmedia/Site/issues"
+  },
+  "homepage": "https://github.com/fistmedia/Site#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "clean-css-cli": "^4.3.0",
+    "compression": "^1.7.4",
+    "connect-ensure-login": "^0.1.1",
+    "cookie-parser": "^1.4.4",
+    "cookie-session": "^1.4.0",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "http-errors": "^1.7.3",
+    "less": "^3.10.3",
+    "lru-cache": "^5.1.1",
+    "morgan": "^1.9.1",
+    "mysql": "^2.17.1",
+    "passport": "^0.4.1",
+    "passport-facebook": "^3.0.0",
+    "path": "^0.12.7",
+    "serve-favicon": "^2.5.0",
+    "terser": "^4.4.3"
+  }
+}

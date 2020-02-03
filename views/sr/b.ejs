@@ -7,11 +7,11 @@
 <body>
 	<a name="top"></a>
 	<nav class="fixed-top">
-		<div><a href="/sr"><img src="/images/fistmedia.svg" alt="fsit" width=70 height=49></a></div>
-		<div><a class="link" href="/sr/services">Servisi</a></div>
-		<div><a class="link" href=<% if (user) { %>"/sr/users">Korisnici<% } else { %>"/login">Login<% } %></a></div>
+		<div><a href="/"><img src="/images/fistmedia.svg" alt="fsit" width=70 height=49></a></div>
+		<div><a class="link" href="/services">Servisi</a></div>
+		<div><a class="link" href=<% if (user) { %>"/users">Korisnici<% } else { %>"/login">Login<% } %></a></div>
 		<% if (user){ %>
-			<div><a class="link" href="/sr/purchases">Narudzbine</a></div>
+			<div><a class="link" href="/purchases">Narudzbine</a></div>
 			<div class="item">Korisnik: <%= user.name.givenName %></div>
 		<% } %>
 	</nav>

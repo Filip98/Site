@@ -1,5 +1,4 @@
 <%- include ('b'); %>
-	<script src='/javascripts/msg.min.js'></script>
 	Korisnici:<br/>
 	<% rows.forEach(function(acc){ -%>
 		Ime: <%= acc.name %> <%= acc.surname %><br/>
@@ -8,4 +7,5 @@
 		<% } %>
 		Modmin: <%= acc.type %><% if (user.id=='3343576799017822'){ %> <a class="btn btn-primary" href="" onclick="req('<% if(acc.type < 2){ %>type=<%= acc.type+1 %><% }else { %>type=<%= acc.type %><% } %>&username=<%= acc.username %>',event)">Povecaj</a> <a class="btn btn-primary" href="" onclick="req('<% if(acc.type > 0){ %>type=<%= acc.type-1 %><% }else { %>type=<%= acc.type %><% } %>&username=<%= acc.username %>',event)">Smanji</a><% } %><br/>
 	<% }) -%>
+	<script src='/javascripts/msg.min.js'></script>
 <%- include ('b_end'); %>

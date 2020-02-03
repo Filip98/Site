@@ -1,3 +1,4 @@
+/* @license magnet:?xt=urn:btih:0ef1b8170b3b615170ff270def6427c317705f85&dn=lgpl-3.0.txt LGPL-3.0 */
 function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
  }
@@ -65,14 +66,14 @@ function elvalue(value){
 	return value;
 }
 
-function req(data='',event='',method='POST',url='',lang='',el='null'){
+function req({data='',e='',url='',method='POST',lang='',el='null'}={}){
 	if (lang != '')
 		message(lang,el);
 	if (checker(el) == false)
 		return;
 
-	if (event != '')
-		event.preventDefault();
+	if (e != '')
+		e.preventDefault();
 
 	let msg = data;
 	if (data != '' && data.split("=")[0] == data){
@@ -82,16 +83,16 @@ function req(data='',event='',method='POST',url='',lang='',el='null'){
 			msg+='&'+data[i]+"="+elvalue(data[i]);
 	}
 	
-	//if (method == 'POST')
-	//	Http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	fetch(url, {
 		method: method,
+		//if (method == 'POST')
 		headers: {"Content-type": "application/x-www-form-urlencoded; charset=UTF-8"},
 		body: msg
 	})
 	.then(() => {
-		if (event != '')
-			location.href = event.target.href;
+		if (e != '')
+			location.href = e.target.href;
 	});
 	//navigator.sendBeacon(url, msg);
 }
+/* @license-end */

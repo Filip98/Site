@@ -11,9 +11,8 @@ const createError = require('http-errors'),
 	passport = require('passport'),
 	fblogin = require('passport-facebook').Strategy,
 	bcrypt = require('bcryptjs'),
-	indexRouter = require('./routes/index'),
-	enRouter = require('./routes/en'),
-	srRouter = require('./routes/sr');
+	srRouter = require('./routes/sr'),
+	enRouter = require('./routes/en');
 
 passport.use(new fblogin({
 	clientID: process.env.FB_ClientID,
@@ -63,9 +62,8 @@ app.use(function(req,res,next){
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', indexRouter);
+app.use('/', srRouter);
 app.use('/en', enRouter);
-app.use('/sr', srRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

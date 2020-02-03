@@ -1,5 +1,4 @@
 <%- include ('b'); %>
-	<script src='/javascripts/msg.min.js'></script>
 	Narudzbine:<br/>
 	<% rows.forEach(function(item){ -%>
 		<% if (user.id=='3343576799017822' && item.username){ %>Za: <%= item.username %><% } -%>
@@ -12,4 +11,5 @@
 			Uradjeno: <%= item.completed %> <a class="btn btn-primary" href="" onclick="req('<% if(item.completed){ %>completed=0<% }else { %>completed=1<% } %>&id_p=<%= item.id_p %>',event)">Promeni</a><br/>
 		<% } -%>
 	<% }) -%>
+	<script src='/javascripts/msg.min.js'></script>
 <%- include ('b_end'); %>

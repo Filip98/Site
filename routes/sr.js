@@ -55,7 +55,7 @@ router.route('/users')
 
 router.route('/purchases')
 	.get(require('connect-ensure-login').ensureLoggedIn(),function(req, res) {
-		req.con.query('SELECT * FROM purchases GROUP BY completed', function(err,rows){
+		req.con.query('SELECT * FROM purchases ORDER BY completed', function(err,rows){
 			if (err) throw err;
 			res.render('sr/purchases',{rows,title: "Kupovine", user: req.user});
 		});
@@ -63,6 +63,7 @@ router.route('/purchases')
 	.post(function(req,res){
 		req.con.query("UPDATE purchases SET completed = '"+req.body.completed+"' WHERE id_p='"+req.body.id_p+"';", function(err, result) {
 			if (err) throw err;	
+			res.render('sr/purchases',{rows,title: "Kupovine", user: req.user});
 		});
 	});
 

@@ -1,4 +1,4 @@
-/* @license magnet:?xt=urn:btih:0ef1b8170b3b615170ff270def6427c317705f85&dn=lgpl-3.0.txt LGPL-3.0 */
+// @license magnet:?xt=urn:btih:0ef1b8170b3b615170ff270def6427c317705f85&dn=lgpl-3.0.txt LGPL-3.0
 function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
  }
@@ -95,4 +95,4 @@ function req({data='',e='',url='',method='POST',lang='',el='null'}={}){
 	});
 	//navigator.sendBeacon(url, msg);
 }
-/* @license-end */
+// @license-end

@@ -17,31 +17,30 @@ function rmsg(){
 	document.getElementById("message").innerHTML = "";
 }
 
-function message(lang='',el='null'){
+async function message(lang='',el='null'){
 	rmsg();
-	sleep(60).then(() => {
-		let text='Language not specified';
-		if (checker(el) == false){
-			switch(lang){
-				case 'en':
-					text = "You must fill the required fields";break;
-				case 'sr':
-					text = "Morate popuniti neophodna polja";break;
-			}
-
-			document.getElementById("message").innerHTML = text;
-			return false;
-		}
-
+	await sleep(60);
+	let text='Language not specified';
+	if (!checker(el)){
 		switch(lang){
 			case 'en':
-				text = "Your request has been successfully received!";break;
+				text = "You must fill the required fields";break;
 			case 'sr':
-				text = "Vas zahtev je uspesno primljen!";break;
+				text = "Morate popuniti neophodna polja";break;
 		}
 
 		document.getElementById("message").innerHTML = text;
-	});
+		return false;
+	}
+
+	switch(lang){
+		case 'en':
+			text = "Your request has been successfully received!";break;
+		case 'sr':
+			text = "Vas zahtev je uspesno primljen!";break;
+	}
+
+	document.getElementById("message").innerHTML = text;
 }
 
 let i;
@@ -50,9 +49,8 @@ function elvalue(value){
 	if (el)
 		value=el.value;
 	else
-		if (value=="isc"){
-			//regex
-			value=elvalue(String(i)+"sc");
+		if (value.match(/^ii/)){
+			value=elvalue(String(i)+value.substring(1,value.length));
 			i=0;
 		} else{
 			el = document.getElementsByName(value);
@@ -66,33 +64,33 @@ function elvalue(value){
 	return value;
 }
 
-function req({data='',e='',url='',method='POST',lang='',el='null'}={}){
+async function req({data='',ev='',url='',method='POST',lang='',el='null'}={}){
+	if (checker(el)){
+		if (ev != '' && method != "async")
+			ev.preventDefault();
+
+		if (data != '' && data.split("=")[0] == data){
+			let msg = data.split(",");
+			data = msg[0]+"="+elvalue(msg[0]);
+			for(let i=1;i<msg.length;i++)
+				data+='&'+msg[i]+"="+elvalue(msg[i]);
+		}
+
+		if (method == 'async')
+			navigator.sendBeacon(url, data);
+		else{
+			await fetch(url, {
+				method: method,
+				//if (method == 'POST')
+				headers: {"Content-type": "application/x-www-form-urlencoded; charset=UTF-8"},
+				body: data
+			});
+			if (ev != '')
+				location.href = ev.target.href;
+		}
+	}
+
 	if (lang != '')
 		message(lang,el);
-	if (checker(el) == false)
-		return;
-
-	if (e != '')
-		e.preventDefault();
-
-	let msg = data;
-	if (data != '' && data.split("=")[0] == data){
-		data = data.split(",");
-		msg = data[0]+"="+elvalue(data[0]);
-		for(let i=1;i<data.length;i++)
-			msg+='&'+data[i]+"="+elvalue(data[i]);
-	}
-	
-	fetch(url, {
-		method: method,
-		//if (method == 'POST')
-		headers: {"Content-type": "application/x-www-form-urlencoded; charset=UTF-8"},
-		body: msg
-	})
-	.then(() => {
-		if (e != '')
-			location.href = e.target.href;
-	});
-	//navigator.sendBeacon(url, msg);
 }
 // @license-end

@@ -6,12 +6,16 @@
 </head>
 <body>
 	<a name="top"></a>
-	<nav class="fixed-top">
-		<div><a href="/"><img src="/images/fistmedia.svg" alt="fsit" width=70 height=49></a></div>
-		<div><a class="link" href="/services">Servisi</a></div>
-		<div><a class="link" href=<% if (user) { %>"/users">Korisnici<% } else { %>"/login">Login<% } %></a></div>
-		<% if (user){ %>
-			<div><a class="link" href="/purchases">Narudzbine</a></div>
-			<div class="item">Korisnik: <%= user.name.givenName %></div>
-		<% } %>
+	<nav class="navbar fixed-top">
+		<ul class="mr-auto">
+			<li><a class="nav-link" href="/"><img src="/images/fistmedia.svg" alt="fsit" width=70 height=49></a></li>
+			<li><a class="nav-link" href="/services">Servisi</a></li>
+		</ul>
+		<ul class="ml-auto">
+			<li><a class="nav-link" href=<%- user ? '"/users">Korisnici' : '"/login">Login' %></a></li>
+			<% if (user){ -%>
+				<li><a class="nav-link" href="/purchases">Narudzbine</a></li>
+				Korisnik: <%= user.name.givenName %>
+			<% } -%>
+		</ul>
 	</nav>

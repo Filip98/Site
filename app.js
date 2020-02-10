@@ -10,30 +10,29 @@ const createError = require('http-errors'),
 	session = require('cookie-session'),
 	passport = require('passport'),
 	fblogin = require('passport-facebook').Strategy,
-	bcrypt = require('bcryptjs'),
 	srRouter = require('./routes/sr'),
 	enRouter = require('./routes/en');
 
 passport.use(new fblogin({
 	clientID: process.env.FB_ClientID,
-	clientSecret: process.env.FB_clientSecret,
+	clientSecret: process.env.FB_ClientSecret,
 	callbackURL: '/return',
 	profileFields: ['id', 'first_name', 'last_name', 'email']
-	}, function(accessToken, refreshToken, profile, cb) {
+	}, (accessToken, refreshToken, profile, cb) => {
 		return cb(null, profile);
 	}
 ));
 	
-passport.serializeUser(function(user, cb) {
+passport.serializeUser((user, cb) => {
 	cb(null, user);
 });
 	
-passport.deserializeUser(function(obj, cb) {
+passport.deserializeUser((obj, cb) => {
 	cb(null, obj);
 });
 
 const con = require('mysql').createConnection({host: process.env.DB_Host, user: process.env.DB_User, password: process.env.DB_Pass, database: process.env.DB_Db});
-con.connect( function(err) {
+con.connect((err) => {
 	if (err) throw err;
 	console.log('Established a connection with the database');
 });
@@ -49,12 +48,12 @@ app.locals.cache = new LRU(100); // LRU cache with 100-item limit
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use(logger('tiny'));
 //app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false }));
 app.use(cookieParser());
-app.use(session({ secret: process.env.cookie_secret, resave: true, saveUninitialized: true }));
+app.use(session({secret: process.env.Cookie_secret, resave: true, saveUninitialized: true }));
 app.use(compression({level:1}));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(function(req,res,next){
+app.use((req,res,next) => {
 		req.con = con;
 		next();
 });
@@ -66,12 +65,12 @@ app.use('/', srRouter);
 app.use('/en', enRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
 	next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
 	// set locals, only providing error in development
 	res.locals.message = err.message;
 	res.locals.error = req.app.get('env') === 'development' ? err : {};

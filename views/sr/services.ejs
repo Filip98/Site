@@ -1,17 +1,17 @@
 <%- include ('b'); %>
-	<form action="javascript:req({data:'service,contact,details,isc',lang:'sr',el:'contact'})" onreset="rmsg()">
-		Polja oznacena sa * su neophodna<br/>
-		*Izaberite sta zelite:<br/>
+	<form action="javascript:req({data:'service,contact,details,iisc',lang:'sr',el:'contact'})" onreset="rmsg()">
+		Polja oznacena sa * su neophodna
+		<h3>*Izaberite sta zelite:</h3>
 		<% let i = 1; _%>
-		<input type="radio" name="service" id="0" value="<%= rows[0].service %>" checked><label for="0"><%= rows[0].desc_se %></label>
-		<select id="0sc">
+		<input type="radio" name="service" id="0" value="<%= rows[0].service %>" checked><label for="0" class="btn btn-primary select"><%= rows[0].desc_se %></label>
+		<select class="btn btn-secondary" id="0isc">
 			<option value="<%= rows[0].subcat %>"><%= rows[0].desc_sc %> <%= rows[0].price %>RSD</option>
 		<% let pr = rows[0].service; _%>
 		<% for(let j=1;j<rows.length;j++){ _%>
 			<% if (rows[j].service != pr){ _%>
 				</select><br/>
-				<input type="radio" name="service" id="<%= i %>" value="<%= rows[j].service %>"><label for="<%= i %>"><%= rows[j].desc_se %></label>
-				<select id="<%= i %>sc">
+				<input type="radio" name="service" id="<%= i %>" value="<%= rows[j].service %>"><label for="<%= i %>" class="btn btn-primary select"><%= rows[j].desc_se %></label>
+				<select class="btn btn-secondary" id="<%= i %>isc?">
 					<option value="<%= rows[j].subcat %>"><%= rows[j].desc_sc %> <%= rows[j].price %>RSD</option>
 				<% i++; _%>
 				<% pr = rows[j].service; _%>
@@ -20,12 +20,12 @@
 			<% }} _%>
 		</select><br/>
 		<br/>
-		<a class="btn btn-primary" href="?vmode=full" onclick="req({data:'name=vmode&value=full',e:event,url:'/cookie'})">Promeni rezim prikaza</a>
+		<a class="btn btn-primary" href="?vmode=full" onclick="req({data:'name=vmode&value=full',ev:event,url:'/cookie'})">Promeni rezim prikaza</a>
 		<p>Navedene cene su okvirne i mogu variati u zavisnosti od tacne zelje<br/>
 		Popust 25% na grupne casove</p>
-		*Vas kontakt:<br/>
+		<h3>*Vas kontakt:<br/></h3>
 		<% if (user){ %>
-			<input id="contact" type="text" value="<% if (user.emails){ %> <%= user.emails[0].value %> <% }else{ %>facebook id:<%= user.id %> <% } %>"/><br/>
+			<input id="contact" type="text" value="<% if (user.emails){ %><%= user.emails[0].value %><% }else{ %>id:<%= user.id %><% } %>"/><br/>
 		<% }else{ %>
 			<input id="contact" type="text" placeholder="Ime i broj"/><br/>
 		<% } %>

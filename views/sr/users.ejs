@@ -1,12 +1,12 @@
 <%- include ('b'); %>
-	Korisnici:<br/>
+	Korisnici:<br>
 	<% let code=``; -%>
 	<% for (let i=0;i<rows.length;i++){ -%>
-		Ime: <%= rows[i].name %> <%= rows[i].surname -%><br/>
+		Ime: <%= rows[i].name %> <%= rows[i].surname -%><br>
 		<% if (rows[i].email != 'undefined'){ -%>
-			Email: <%= rows[i].email -%><br/>
+			Email: <%= rows[i].email -%><br>
 		<% } -%>
-		Modmin: <a id="<%= i %>"><%= rows[i].type %></a><% if (user.id=='3343576799017822' && rows[i].type != user.id){ %> <button type="button" class="btn btn-primary" id="<%= i %>inc">Povecaj</button> <button type="button" class="btn btn-primary" id="<%= i %>dec">Smanji</button><br/>
+		Modmin: <a id="<%= i %>"><%= rows[i].type %></a><% if (user.id=='3343576799017822' && rows[i].type != user.id){ %> <button type="button" class="btn btn-primary" id="<%= i %>inc">Povecaj</button> <button type="button" class="btn btn-primary" id="<%= i %>dec">Smanji</button><br>
 			<% code+=`document.getElementById("${i}inc").addEventListener("click",()=>{` -%>
 				<% code+=`let el=document.getElementById("${i}");` -%>
 				<% code+=`let type=Number(el.innerHTML);` -%>
@@ -30,4 +30,4 @@
 		// @license-end
 	</script>
 	<script src='/javascripts/msg.min.js'></script>
-<%- include ('b_end'); %>
+<%- include ('b_end'); -%>

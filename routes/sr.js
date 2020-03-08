@@ -15,19 +15,21 @@ router.get('/return',
 		});
 });
 
-router.post('/cookie', (req,res) => {
-	res.cookie(req.body.name, req.body.value,{maxAge: 17280000}).end();
+router.post('/cookie/:name/:value/:maxAge', (req,res) => {
+	res.cookie(req.params.name, req.params.value,{maxAge: req.params.maxAge}).end();
 });
 
 router.route('/services')
 	.get((req, res) => {
-		req.con.query("SELECT * FROM subcats LEFT JOIN services ON subcats.service=services.service", (err,rows) => {
+		req.con.query("SELECT * FROM subcats LEFT JOIN services ON subcats.service=services.service ORDER BY subcats.service", (err,rows) => {
 			if (err) throw err;
-			//SELECT COUNT(subcat) FROM subcats GROUP BY service
-			if (req.query.vmode == "full" || !req.query.vmode && req.cookies["vmode"] == "full")
-				res.render('sr/services2', {rows, title: "Usluge", user: req.user});//,{cache: true, filename: 'sr/services2'});
-			else
-				res.render('sr/services', {rows, title: "Usluge", user: req.user});//,{cache: true, filename: 'sr/services'});
+			req.con.query("SELECT COUNT(subcat) as br FROM subcats GROUP BY service", (err,num) => {
+			if (err) throw err;
+				if (req.query.vmode == "full" || !req.query.vmode && req.cookies["vmode"] == "full")
+					res.render('sr/services2', {rows, num, title: "Usluge", user: req.user});//,{cache: true, filename: 'sr/services2'});
+				else
+					res.render('sr/services', {rows, num, title: "Usluge", user: req.user});//,{cache: true, filename: 'sr/services'});
+			});
 		});
 	})
 	.post((req, res) => {
@@ -72,7 +74,7 @@ router.get('/about',(req, res) => {
 });
 
 router.get('/jaguar',(req, res) => {
-	res.render('jaguar');
+	res.render('sr/jaguar');
 });
 
 module.exports = router;

@@ -3,7 +3,7 @@
 @black: #212529;
 
 body {
-	padding-top: 65px;
+	padding-top: 64px;
 	padding-bottom: 70px;
 	padding-left: 15px;
 	background-color: #fd7e14;
@@ -28,9 +28,6 @@ a {
 	text-align: center;
 	vertical-align: middle;
 	cursor: pointer;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
 	user-select: none;
 	background-color: transparent;
 	border: 1px solid transparent;
@@ -71,21 +68,20 @@ nav {
 
 .navbar {
 	position: relative;
-	display: -ms-flexbox;
 	display: flex;
-	-ms-flex-wrap: wrap;
 	flex-wrap: wrap;
-	-ms-flex-align: center;
 	align-items: center;
-	-ms-flex-pack: justify;
 	justify-content: space-between;
+	padding: 0.5rem;
+}
+
+.nav-item, .nav-link {
 	padding-right: 0.5rem;
 }
 
 .nav-link {
 	color: @white;
 	display: block;
-	//padding: 0.5rem 1rem;
 }
   
 .nav-link:hover, .nav-link:focus {
@@ -96,7 +92,10 @@ nav {
 nav li {
 	list-style: none;
 	float: left;
-	padding-right: 0.5rem;
+}
+
+.d-none {
+  display: none;
 }
 
 .fixed-top {

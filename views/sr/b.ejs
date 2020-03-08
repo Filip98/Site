@@ -2,20 +2,18 @@
 <html lang="sr">
 <head>
 	<title><%= title %></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel='stylesheet' href='/stylesheets/style.css'/>
 </head>
 <body>
-	<a name="top"></a>
 	<nav class="navbar fixed-top">
-		<ul class="mr-auto">
-			<li><a class="nav-link" href="/"><img src="/images/fistmedia.svg" alt="fsit" width=70 height=49></a></li>
-			<li><a class="nav-link" href="/services">Servisi</a></li>
-		</ul>
+		<a class="nav-link" href="/"><img src="/images/fistmedia.svg" alt="fsit" width=57 height=40></a>
+		<a class="nav-link" href="/services">Servisi</a>
 		<ul class="ml-auto">
 			<li><a class="nav-link" href=<%- user ? '"/users">Korisnici' : '"/login">Login' %></a></li>
 			<% if (user){ -%>
 				<li><a class="nav-link" href="/purchases">Narudzbine</a></li>
-				Korisnik: <%= user.name.givenName %>
+				<li>Korisnik: <%= user.name.givenName %></li>
 			<% } -%>
 		</ul>
 	</nav>

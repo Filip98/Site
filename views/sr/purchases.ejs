@@ -1,20 +1,20 @@
-<%- include ('b'); %>
+<%- include ("b"); %>
 	Narudzbine:<br>
 	<% let code=``; -%>
-	<% for (let i=0;i<rows.length;i++){ -%>
-		<% if (user.id=='3343576799017822' && rows[i].id){ %>Za: <%= rows[i].id %><% } -%>
-		<% if (rows[i].id==user.id || user.id=='3343576799017822'){ -%>
+	<% for (let i = 0;i < rows.length;i++) { -%>
+		<% if (user.id == "3343576799017822" && rows[i].id) { %>Za: <%= rows[i].id %><% } -%>
+		<% if (rows[i].id == user.id || user.id == "3343576799017822"){ -%>
 			Id: <%= rows[i].id_p -%><br>
 			Podkategorija: <%= rows[i].desc_sc -%><br>
 			Detalji: <%= rows[i].details -%><br>
 			Kontakt: <%= rows[i].contact -%><br>
 			Uradjeno: <a id="<%= i %>"><%= rows[i].completed %></a> <button type="button" class="btn btn-primary" id="<%= i %>c">Promeni</button><br>
 		<% } -%>
-		<% code+=`document.getElementById("${i}c").addEventListener("click",()=>{` -%>
-			<% code+=`let el=document.getElementById("${i}");` -%>
-			<% code+=`let done=Number(el.innerHTML)^1;` -%>
-			<% code+=`el.innerHTML=done;` -%>
-			<% code+=`req({data:'completed='+done+'&id_p=${rows[i].id_p}'});` -%>
+		<% code += `document.getElementById("${i}c").addEventListener("click", () => {` -%>
+			<% code += `let el = document.getElementById("${i}");` -%>
+			<% code += `let done = Number(el.innerHTML)^1;` -%>
+			<% code += `el.innerHTML = done;` -%>
+			<% code += `req({data:"completed=" + done + "&id_p=${rows[i].id_p}"});` -%>
 		<% code+=`});` -%>
 	<% } -%>
 	<script>
@@ -22,5 +22,5 @@
 		<%- code %>
 		// @license-end
 	</script>
-	<script src='/javascripts/msg.min.js'></script>
-<%- include ('b_end'); -%>
+	<script src="/javascripts/msg.min.js"></script>
+<%- include ("b_end"); -%>

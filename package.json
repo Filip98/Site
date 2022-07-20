@@ -38,6 +38,6 @@
     "passport-facebook": "^3.0.0",
     "path": "^0.12.7",
     "serve-favicon": "^2.5.0",
-    "terser": "^4.6.10"
+    "terser": "^4.8.1"
   }
 }

@@ -6,7 +6,6 @@ const createError = require("http-errors"),
 	cookieParser = require("cookie-parser"),
 	compression = require("compression"),
 	logger = require("morgan"),
-	LRU = require("lru-cache"),
 	session = require("cookie-session"),
 	passport = require("passport"),
 	fblogin = require("passport-facebook").Strategy,
@@ -24,19 +23,19 @@ passport.use(new fblogin({
 ));
 
 passport.serializeUser((user, cb) => {
-	cb(null, user);
+  cb(null, user);
 });
-	
+
 passport.deserializeUser((obj, cb) => {
-	cb(null, obj);
+  cb(null, obj);
 });
 
 const pool = require("mariadb").createPool({
-	//connectionLimit: 5,
-	host: process.env.DB_Host,
-	user: process.env.DB_User,
-	password: process.env.DB_Pass,
-	database: process.env.DB_Db
+  //connectionLimit: 5,
+  host: process.env.DB_Host,
+  user: process.env.DB_User,
+  password: process.env.DB_Pass,
+  database: process.env.DB_Db
 });
 console.log("Established a connection with the database");
 
@@ -46,19 +45,18 @@ const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.locals.rmWhitespace = true;
-app.locals.cache = new LRU(100); // LRU cache with 100-item limit
 
 app.use(favicon(path.join(__dirname, "public", "favicon.ico")))
 app.use(logger("tiny"));
 //app.use(express.json());
-app.use(express.urlencoded({extended: false }));
+app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(session({secret: process.env.Cookie_secret, resave: true, saveUninitialized: true }));
-app.use(compression({level:1}));
+app.use(session({secret: process.env.Cookie_secret, resave: true, saveUninitialized: true}));
+app.use(compression({level: 1}));
 app.use(express.static(path.join(__dirname, "public")));
-app.use((req,res,next) => {
-	req.pool = pool;
-	next();
+app.use((req, res, next) => {
+  req.pool = pool;
+  next();
 });
 
 app.use(passport.initialize());
@@ -69,7 +67,7 @@ app.use("/en", enRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-	next(createError(404));
+  next(createError(404));
 });
 
 // error handler

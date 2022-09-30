@@ -7,6 +7,8 @@ const createError = require("http-errors"),
 	compression = require("compression"),
 	logger = require("morgan"),
 	session = require("cookie-session"),
+	{ MongoClient } = require("mongodb"),
+	assert = require("assert"),
 	passport = require("passport"),
 	fblogin = require("passport-facebook").Strategy,
 	srRouter = require("./routes/sr"),
@@ -30,14 +32,21 @@ passport.deserializeUser((obj, cb) => {
   cb(null, obj);
 });
 
-const pool = require("mariadb").createPool({
-  //connectionLimit: 5,
-  host: process.env.DB_Host,
-  user: process.env.DB_User,
-  password: process.env.DB_Pass,
-  database: process.env.DB_Db
-});
-console.log("Established a connection with the database");
+let url;
+if (process.env.DB_User && process.env.DB_Pass)
+  url = `mongodb+srv://${process.env.DB_User}:${process.env.DB_Pass}@${process.env.DB_Host}/${process.env.DB_Db}?retryWrites=true&w=majority`;
+else
+  url = `mongodb://${process.env.DB_Host}:27017/${process.env.DB_Db}`;
+
+let pool;
+MongoClient.connect(url, {  
+  //poolSize: 10
+  }, (err, db) => {
+		assert.equal(err, null);
+    pool = db;
+    console.log("Established a connection with the database");
+  }
+);
 
 const app = express();
 

@@ -1,16 +1,17 @@
-<%- include ('b'); %>
+<%- include ("b"); %>
   Polja označena sa * su neophodna
   <h3>*Izaberite šta želite:</h3>
   <form>
     <% let i = 0; -%>
-    <% for (let len of num) { -%>
+    <% for (const len of num) { -%>
       <input type="radio" name="service" id="<%= i %>" value="<%= rows[i].service %>">
-      <label for="<%= i %>" class="btn btn-primary select"><%= rows[i].desc_se %></label>
+      <label for="<%= i %>" class="btn btn-primary select"><%= rows[i].desc %></label>
       <select class="btn btn-secondary" id="<%= i %>isc?">
-      <% for(let j = 0;j < len["br"];j++,i++) { -%>
-        <option value="<%= rows[i].subcat %>"><%= rows[i].desc_sc %> <%= rows[i].price %>RSD</option>
+      <% for(let j = 0; j < len["br"]; j++) { -%>
+        <option value="<%= rows[i].subcat %>"><%= rows[i]["subcat"][j].desc %> <%= 200 %>RSD</option>
       <% } -%>
       </select><br>
+      <% i++; -%>
     <% } -%>
     <br>
     <a class="btn btn-primary" id="change" href="?vmode=full">Promeni režim prikaza</a>
@@ -35,5 +36,5 @@
     document.getElementById("change").addEventListener("click", () => req({url:"/cookie/vmode/full/17280000", method:"async"}) );
     // @license-end
   </script>
-  <script src='/javascripts/msg.min.js'></script>
-<%- include ('b_end'); -%>
+  <script src="/javascripts/msg.min.js"></script>
+<%- include ("b_end"); -%>
